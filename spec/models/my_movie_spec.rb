@@ -4,6 +4,6 @@ RSpec.describe MyMovie, type: :model do
   it { should belong_to(:user) }
   it { should belong_to(:movie) }
 
-  it { should validate_presence_of(:watched) }
-  it { should validate_presence_of(:to_watch) }
+  it { should have_valid(:watched).when(true, false) }
+  it { should have_valid(:to_watch).when(true, false) }
 end
