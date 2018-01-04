@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Movies API', type: :request do
+  let(:user) { create(:user) }
+  # authorize request
+  let(:headers) { valid_headers }
+
   describe 'GET /movies/discover' do
     # make HTTP get request before each example
     before do
@@ -13,7 +17,7 @@ RSpec.describe 'Movies API', type: :request do
       response = mock_request(body)
 
       expect(HTTParty).to receive(:get).and_return(response)
-      get '/movies/discover'
+      get '/movies/discover', params: {}, headers: headers
     end
 
     it 'returns movies' do
@@ -37,7 +41,7 @@ RSpec.describe 'Movies API', type: :request do
       response = mock_request(body)
 
       expect(HTTParty).to receive(:get).and_return(response)
-      get '/movies/search?query=deadpool'
+      get '/movies/search?query=deadpool', params: {}, headers: headers
     end
 
     it 'returns movies matching search' do
@@ -59,7 +63,7 @@ RSpec.describe 'Movies API', type: :request do
       response = mock_request(body)
 
       expect(HTTParty).to receive(:get).and_return(response)
-      get '/movies/find/181808'
+      get '/movies/find/181808', params: {}, headers: headers
     end
 
     it 'returns requested movie' do
