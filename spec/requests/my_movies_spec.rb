@@ -62,6 +62,11 @@ RSpec.describe 'My Movies API', type: :request do
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
       end
+
+      it 'adds associated genre' do
+        expect(Genre.count).to be 1
+        expect(GenresMovie.count).to be 1
+      end
     end
 
     context 'when the request is invalid' do
