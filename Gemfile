@@ -18,4 +18,5 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda'
   gem 'valid_attribute'
+  gem 'coveralls', require: false
 end

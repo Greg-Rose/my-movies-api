@@ -1,24 +1,6 @@
-# README
+# My Movies API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[ ![Codeship Status for Greg-Rose/my-movies-api](https://app.codeship.com/projects/57d86ce0-d3d9-0135-1228-422b3efe9ca9/status?branch=master)](https://app.codeship.com/projects/262902)
+[![Coverage Status](https://coveralls.io/repos/github/Greg-Rose/my-movies-api/badge.svg?branch=master)](https://coveralls.io/github/Greg-Rose/my-movies-api?branch=master)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The API for My Movies react app.
