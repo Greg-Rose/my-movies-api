@@ -2,13 +2,13 @@ module V1
   class MyMoviesController < ApplicationController
     # GET /my_watched_movies
     def watched
-      @watched_movies = current_user.movies.watched
+      @watched_movies = current_user.movies.watched.paginate(page: params[:page], per_page: 20)
       json_response(@watched_movies)
     end
 
     # GET /my_movies_to_watch
     def to_watch
-      @movies_to_watch = current_user.movies.to_watch
+      @movies_to_watch = current_user.movies.to_watch.paginate(page: params[:page], per_page: 20)
       json_response(@movies_to_watch)
     end
 
