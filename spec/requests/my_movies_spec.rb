@@ -48,7 +48,7 @@ RSpec.describe 'My Movies API', type: :request do
           "id": 14,
           "name": "Fantasy"
         }],
-        watched: false
+        to_watch: true
       }.to_json
     end
 
@@ -57,6 +57,8 @@ RSpec.describe 'My Movies API', type: :request do
 
       it 'creates a my_movie' do
         expect(user.my_movies.last.movie.title).to eq('Movie Title Test')
+        expect(user.my_movies.last.watched).to be false
+        expect(user.my_movies.last.to_watch).to be true
       end
 
       it 'returns status code 201' do

@@ -24,8 +24,8 @@ module V1
       end
 
       # create my_movie belonging to current user
-      watched = params["watched"]
-      to_watch = !params["watched"]
+      watched = params["watched"] || false
+      to_watch = params["to_watch"] || false
       @my_movie = current_user.my_movies.create!(movie: movie, watched: watched, to_watch: to_watch)
       json_response(@my_movie, :created)
     end
@@ -35,7 +35,7 @@ module V1
       @my_movie = MyMovie.find(params[:id])
       raise ExceptionHandler::AuthenticationError if @my_movie.user != current_user
 
-      if params["watched"]
+      if params["watched"] && !@my_movie.watched
         @my_movie.update_attributes(watched: true, to_watch: false)
       else
         @my_movie.update_attributes(update_params)
