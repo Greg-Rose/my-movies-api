@@ -20,7 +20,10 @@ module V1
       if movie.new_record?
         movie.release_date = DateTime.parse(params[:release_date]) if params[:release_date]
         movie.save!
-        params[:genres].each { |g| movie.genres.find_or_create_by!(name: g["name"]) }
+        params[:genres].each do |g|
+          genre = Genre.find_or_create_by!(name: g["name"])
+          movie.genres << genre
+        end
       end
 
       # create my_movie belonging to current user
