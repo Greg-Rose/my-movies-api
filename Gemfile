@@ -23,3 +23,5 @@ group :test do
   gem 'valid_attribute'
   gem 'coveralls', require: false
 end
+
+ruby "2.4.1"
