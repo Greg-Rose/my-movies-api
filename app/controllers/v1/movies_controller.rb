@@ -1,12 +1,16 @@
 module V1
   class MoviesController < ApplicationController
     def discover
-      movies = TMDB::Movie.discover
+      sort_by = params[:sort_by]
+      page = params[:page]
+      movies = TMDB::Movie.discover(sort_by, page)
       json_response(movies)
     end
 
     def search
-      movies = TMDB::Movie.search(params[:query])
+      query = params[:query]
+      page = params[:page]
+      movies = TMDB::Movie.search(query, page)
       json_response(movies)
     end
 
@@ -22,6 +26,12 @@ module V1
       end
 
       json_response(movie)
+    end
+
+    def popular
+      page = params[:page]
+      movies = TMDB::Movie.popular(page)
+      json_response(movies)
     end
   end
 end
