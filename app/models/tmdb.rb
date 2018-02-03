@@ -33,6 +33,12 @@ module TMDB
 
       HTTParty.get(url).parsed_response
     end
+
+    def self.genres
+      url = "#{@@base_url}/genre/#{@path}/list?#{@@api_key}&language=en-US"
+
+      HTTParty.get(url).parsed_response
+    end
   end
 
   class Movie < TMDB::Base

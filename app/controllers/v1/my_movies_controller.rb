@@ -21,7 +21,7 @@ module V1
         movie.release_date = DateTime.parse(params[:release_date]) if params[:release_date]
         movie.save!
         params[:genres].each do |g|
-          genre = Genre.find_or_create_by!(name: g["name"])
+          genre = Genre.find_or_create_by!(name: g["name"], tmdb_id: g["id"])
           movie.genres << genre
         end
       end
