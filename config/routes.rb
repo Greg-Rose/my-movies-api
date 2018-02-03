@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     get '/my_movies_to_watch', to: 'my_movies#to_watch', as: 'my_movies_to_watch'
     post '/my_movies', to: 'my_movies#create'
     put '/my_movies/:id', to: 'my_movies#update'
+
+    resources :genres, only: [:index]
   end
 
   post '/sign_in', to: 'authentication#authenticate', as: 'sign_in'
