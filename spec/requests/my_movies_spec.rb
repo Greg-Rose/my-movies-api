@@ -147,20 +147,25 @@ RSpec.describe 'My Movies API', type: :request do
         expect(response).to have_http_status(202)
       end
     end
+  end
 
-    context 'when removing' do
+  # Test suite for DELETE /my_movies/:id
+  describe 'DELETE /my_movies/:id' do
+    context 'when deleting' do
       let!(:my_movie) { create(:my_movie, user: user, watched: true, to_watch: false) }
-      let(:valid_attributes) { { watched: false }.to_json }
-      before { put "/my_movies/#{my_movie.id}", params: valid_attributes, headers: headers }
+      before { delete "/my_movies/#{my_movie.id}", headers: headers }
 
-      it 'updates the record' do
-        expect(json["watched"]).to be false
-        expect(json["to_watch"]).to be false
-        expect(json["id"]).to be nil
+      it 'deletes the record' do
         expect(MyMovie.count).to eq(15)
       end
 
-      it 'returns status code 204' do
+      it 'returns response indicating watched and to_watch are false and no id' do
+        expect(json["watched"]).to be false
+        expect(json["to_watch"]).to be false
+        expect(json["id"]).to be nil
+      end
+
+      it 'returns status code 202' do
         expect(response).to have_http_status(202)
       end
     end

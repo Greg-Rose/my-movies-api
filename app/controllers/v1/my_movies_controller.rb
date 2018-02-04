@@ -44,13 +44,17 @@ module V1
         @my_movie.update_attributes(update_params)
       end
 
-      if !@my_movie.watched && !@my_movie.to_watch
-        @my_movie.destroy
-        data = { watched: false, to_watch: false, id: nil }
-        json_response(data, :accepted)
-      else
-        json_response(@my_movie, :accepted)
-      end
+      json_response(@my_movie, :accepted)
+    end
+
+    # DELETE /my_movies/:id
+    def destroy
+      @my_movie = MyMovie.find(params[:id])
+      raise ExceptionHandler::AuthenticationError if @my_movie.user != current_user
+
+      @my_movie.destroy
+      response = { to_watch: false, watched: false, id: nil }
+      json_response(response, :accepted)
     end
 
     private

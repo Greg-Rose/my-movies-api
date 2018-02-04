@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get '/my_movies_to_watch', to: 'my_movies#to_watch', as: 'my_movies_to_watch'
     post '/my_movies', to: 'my_movies#create'
     put '/my_movies/:id', to: 'my_movies#update'
+    delete '/my_movies/:id', to: 'my_movies#destroy'
 
     resources :genres, only: [:index]
   end
