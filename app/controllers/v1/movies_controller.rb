@@ -2,8 +2,9 @@ module V1
   class MoviesController < ApplicationController
     def discover
       sort_by = params[:sort_by]
+      genres = params[:genres]
       page = params[:page]
-      movies = TMDB::Movie.discover(sort_by, page)
+      movies = TMDB::Movie.discover(sort_by, genres, page)
       json_response(movies)
     end
 

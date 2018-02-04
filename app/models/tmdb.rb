@@ -6,9 +6,10 @@ module TMDB
     @@base_url = "https://api.themoviedb.org/3"
     @@api_key = "api_key=#{ENV["TMDB_API_KEY"]}"
 
-    def self.discover(sort_by = "popularity.desc", page = nil)
+    def self.discover(sort_by = "popularity.desc", genres = nil, page = nil)
       url = "#{@@base_url}/discover/#{@path}?#{@@api_key}"
       url += "&sort_by=#{sort_by}"
+      url += "&with_genres=#{genres}"
       url += "&page=#{page}" if page
 
       HTTParty.get(url).parsed_response
