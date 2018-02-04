@@ -46,7 +46,8 @@ module V1
 
       if !@my_movie.watched && !@my_movie.to_watch
         @my_movie.destroy
-        head :no_content
+        data = { watched: false, to_watch: false, id: nil }
+        json_response(data, :accepted)
       else
         json_response(@my_movie, :accepted)
       end

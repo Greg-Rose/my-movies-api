@@ -154,12 +154,14 @@ RSpec.describe 'My Movies API', type: :request do
       before { put "/my_movies/#{my_movie.id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
-        expect(response.body).to be_empty
+        expect(json["watched"]).to be false
+        expect(json["to_watch"]).to be false
+        expect(json["id"]).to be nil
         expect(MyMovie.count).to eq(15)
       end
 
       it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(202)
       end
     end
   end
