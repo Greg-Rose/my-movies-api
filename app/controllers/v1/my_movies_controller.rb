@@ -21,7 +21,7 @@ module V1
         movie.release_date = DateTime.parse(params[:release_date]) if params[:release_date]
         movie.save!
         params[:genres].each do |g|
-          genre = Genre.find_or_create_by!(name: g["name"])
+          genre = Genre.find_or_create_by!(name: g["name"], tmdb_id: g["id"])
           movie.genres << genre
         end
       end
@@ -44,12 +44,17 @@ module V1
         @my_movie.update_attributes(update_params)
       end
 
-      if !@my_movie.watched && !@my_movie.to_watch
-        @my_movie.destroy
-        head :no_content
-      else
-        json_response(@my_movie, :accepted)
-      end
+      json_response(@my_movie, :accepted)
+    end
+
+    # DELETE /my_movies/:id
+    def destroy
+      @my_movie = MyMovie.find(params[:id])
+      raise ExceptionHandler::AuthenticationError if @my_movie.user != current_user
+
+      @my_movie.destroy
+      response = { to_watch: false, watched: false, id: nil }
+      json_response(response, :accepted)
     end
 
     private
