@@ -6,11 +6,13 @@ module TMDB
     @@base_url = "https://api.themoviedb.org/3"
     @@api_key = "api_key=#{ENV["TMDB_API_KEY"]}"
 
-    def self.discover(sort_by = "popularity.desc", genres = nil, page = nil)
-      url = "#{@@base_url}/discover/#{@path}?#{@@api_key}"
-      url += "&sort_by=#{sort_by}"
-      url += "&with_genres=#{genres}"
-      url += "&page=#{page}" if page
+    def self.discover(options = { sort_by: "popularity.desc" })
+      url = "#{@@base_url}/discover/#{@path}?#{@@api_key}&region=US&with_release_type=3"
+      url += "&sort_by=#{options[:sort_by]}"
+      url += "&with_genres=#{options[:genres]}" if options[:genres]
+      url += "&page=#{options[:page]}" if options[:page]
+      url += "&release_date.lte=#{options[:release_date_lte]}" if options[:release_date_lte]
+      url += "&release_date.gte=#{options[:release_date_gte]}" if options[:release_date_gte]
 
       HTTParty.get(url).parsed_response
     end
@@ -23,7 +25,7 @@ module TMDB
     end
 
     def self.find(movie_id)
-      url = "#{@@base_url}/#{@path}/#{movie_id}?#{@@api_key}"
+      url = "#{@@base_url}/#{@path}/#{movie_id}?#{@@api_key}&append_to_response=release_dates"
 
       HTTParty.get(url).parsed_response
     end
