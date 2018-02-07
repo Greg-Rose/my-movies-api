@@ -1,10 +1,12 @@
 module V1
   class MoviesController < ApplicationController
     def discover
-      sort_by = params[:sort_by]
-      genres = params[:genres]
-      page = params[:page]
-      movies = TMDB::Movie.discover(sort_by, genres, page)
+      options = {
+        sort_by: params[:sort_by],
+        genres: params[:genres],
+        page: params[:page]
+      }
+      movies = TMDB::Movie.discover(options)
       json_response(movies)
     end
 
@@ -32,6 +34,17 @@ module V1
     def popular
       page = params[:page]
       movies = TMDB::Movie.popular(page)
+      json_response(movies)
+    end
+
+    def newest
+      options = {
+        sort_by: "primary_release_date.desc",
+        release_date_lte: (Date.today + 1.weeks).to_s,
+        release_date_gte: (Date.today - 1.years).to_s,
+        page: params[:page]
+      }
+      movies = TMDB::Movie.discover(options)
       json_response(movies)
     end
   end
