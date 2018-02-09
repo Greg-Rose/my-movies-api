@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get '/movies/find/:tmdb_id', to: 'movies#find', as: 'find_movie'
     get '/movies/popular', to: 'movies#popular', as: 'popular_movies'
     get '/movies/newest', to: 'movies#newest', as: 'newest_movies'
+    get '/movies/upcoming', to: 'movies#upcoming', as: 'upcoming_movies'
 
     get '/my_watched_movies', to: 'my_movies#watched', as: 'my_watched_movies'
     get '/my_movies_to_watch', to: 'my_movies#to_watch', as: 'my_movies_to_watch'

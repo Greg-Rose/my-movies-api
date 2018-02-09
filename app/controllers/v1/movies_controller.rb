@@ -47,5 +47,15 @@ module V1
       movies = TMDB::Movie.discover(options)
       json_response(movies)
     end
+
+    def upcoming
+      options = {
+        sort_by: "primary_release_date.asc",
+        release_date_gte: (Date.today + 1.days).to_s,
+        page: params[:page]
+      }
+      movies = TMDB::Movie.discover(options)
+      json_response(movies)
+    end
   end
 end
