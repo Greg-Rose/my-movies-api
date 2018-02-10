@@ -40,7 +40,7 @@ module V1
     def newest
       options = {
         sort_by: "primary_release_date.desc",
-        release_date_lte: (Date.today + 1.weeks).to_s,
+        release_date_lte: (Date.today).to_s,
         release_date_gte: (Date.today - 1.years).to_s,
         page: params[:page]
       }
