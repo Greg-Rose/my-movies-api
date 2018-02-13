@@ -25,7 +25,7 @@ module TMDB
     end
 
     def self.find(movie_id)
-      url = "#{@@base_url}/#{@path}/#{movie_id}?#{@@api_key}&append_to_response=release_dates"
+      url = "#{@@base_url}/#{@path}/#{movie_id}?#{@@api_key}&append_to_response=release_dates,videos,credits"
 
       HTTParty.get(url).parsed_response
     end
