@@ -38,4 +38,35 @@ RSpec.describe 'Users API', type: :request do
       end
     end
   end
+
+  describe 'GET /account' do
+    let(:user) { create(:user) }
+    let(:headers) { valid_headers }
+
+    context 'when valid request' do
+      before { get '/account', params: {}, headers: headers }
+
+      it 'returns account info' do
+        expect(json).not_to be_empty
+        expect(json["email"]).to eq(user.email)
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'when invalid request' do
+      before { get '/account', params: {}, headers: {} }
+
+      it 'does not return account info' do
+        expect(json["email"]).to be_nil
+      end
+
+      it 'returns failure message' do
+        expect(json['message'])
+          .to match('Missing token')
+      end
+    end
+  end
 end

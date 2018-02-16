@@ -14,4 +14,8 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email, :password_digest
   validates :email, uniqueness: { case_sensitive: false }
+
+  def get_account_info
+    account_info = { first_name: self.first_name, last_name: self.last_name, email: self.email }
+  end
 end
