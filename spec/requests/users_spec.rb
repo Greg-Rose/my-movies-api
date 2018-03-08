@@ -69,6 +69,20 @@ RSpec.describe 'Users API', type: :request do
           .to match('Missing token')
       end
     end
+
+    context 'token expired' do
+      it 'returns failure message' do
+        headers = {
+          "Authorization" => expired_token_generator(user.id),
+          "Content-Type" => "application/json"
+        }
+        
+        get '/account', params: {}, headers: headers
+
+        expect(json['message'])
+          .to match('Signature has expired')
+      end
+    end
   end
 
   # User edits account

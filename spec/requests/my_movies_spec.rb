@@ -169,5 +169,14 @@ RSpec.describe 'My Movies API', type: :request do
         expect(response).to have_http_status(202)
       end
     end
+
+    context 'when movie record not found' do
+      before { delete "/my_movies/0", headers: headers }
+
+      it 'returns failure message' do
+        expect(json['message'])
+          .to match("Couldn't find MyMovie with 'id'=0")
+      end
+    end
   end
 end
