@@ -4,11 +4,11 @@ class User < ApplicationRecord
   has_many :my_movies, dependent: :destroy
   has_many :movies, through: :my_movies do
     def watched
-      where("my_movies.watched = ?", true)
+      where("my_movies.watched = ?", true).order(:title)
     end
 
     def to_watch
-      where("my_movies.to_watch = ?", true)
+      where("my_movies.to_watch = ?", true).order(:title)
     end
   end
 
