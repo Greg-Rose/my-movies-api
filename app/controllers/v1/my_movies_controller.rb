@@ -3,13 +3,15 @@ module V1
     # GET /my_watched_movies
     def watched
       @watched_movies = current_user.movies.watched.paginate(page: params[:page], per_page: 20)
-      json_response(@watched_movies)
+      response = { movies: @watched_movies, page: @watched_movies.current_page, total_pages: @watched_movies.total_pages }
+      json_response(response)
     end
 
     # GET /my_movies_to_watch
     def to_watch
       @movies_to_watch = current_user.movies.to_watch.paginate(page: params[:page], per_page: 20)
-      json_response(@movies_to_watch)
+      response = { movies: @movies_to_watch, page: @movies_to_watch.current_page, total_pages: @movies_to_watch.total_pages }
+      json_response(response)
     end
 
     # POST /my_movies
