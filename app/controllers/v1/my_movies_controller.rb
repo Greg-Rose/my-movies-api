@@ -17,9 +17,10 @@ module V1
     # POST /my_movies
     def create
       # find or create movie in database
-      movie = Movie.find_or_initialize_by(movie_params)
+      movie = Movie.find_or_initialize_by(tmdb_id: params[:tmdb_id])
 
       if movie.new_record?
+        movie.assign_attributes(movie_params)
         movie.release_date = DateTime.parse(params[:release_date]) if params[:release_date]
         movie.save!
         params[:genres].each do |g|
