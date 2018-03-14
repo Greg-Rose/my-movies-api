@@ -16,7 +16,7 @@ RSpec.describe 'My Movies API', type: :request do
 
     it 'returns my_movies marked as watched' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(10)
+      expect(json["movies"].size).to eq(10)
     end
 
     it 'returns status code 200' do
@@ -30,7 +30,7 @@ RSpec.describe 'My Movies API', type: :request do
 
     it 'returns my_movies marked as to watch' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(5)
+      expect(json["movies"].size).to eq(5)
     end
 
     it 'returns status code 200' do

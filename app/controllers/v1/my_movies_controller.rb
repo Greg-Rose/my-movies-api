@@ -3,21 +3,24 @@ module V1
     # GET /my_watched_movies
     def watched
       @watched_movies = current_user.movies.watched.paginate(page: params[:page], per_page: 20)
-      json_response(@watched_movies)
+      response = { movies: @watched_movies, page: @watched_movies.current_page, total_pages: @watched_movies.total_pages }
+      json_response(response)
     end
 
     # GET /my_movies_to_watch
     def to_watch
       @movies_to_watch = current_user.movies.to_watch.paginate(page: params[:page], per_page: 20)
-      json_response(@movies_to_watch)
+      response = { movies: @movies_to_watch, page: @movies_to_watch.current_page, total_pages: @movies_to_watch.total_pages }
+      json_response(response)
     end
 
     # POST /my_movies
     def create
       # find or create movie in database
-      movie = Movie.find_or_initialize_by(movie_params)
+      movie = Movie.find_or_initialize_by(tmdb_id: params[:tmdb_id])
 
       if movie.new_record?
+        movie.assign_attributes(movie_params)
         movie.release_date = DateTime.parse(params[:release_date]) if params[:release_date]
         movie.save!
         params[:genres].each do |g|
